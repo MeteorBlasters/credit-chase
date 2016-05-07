@@ -7,7 +7,6 @@ body {
 canvas {
   display: block;
   background-color: #FBD802;
-  position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
@@ -21,13 +20,41 @@ canvas {
 .top-score {
   right: 20px;
 }
+.dashboard-container{
+  display: -webkit-flex;
+  display:flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  background:white;
+  background-image: none;
+  background-repeat: repeat;
+  background-attachment: scroll;
+  background-position: 0% 0%;
+  overflow: auto;
+  width:100%;
+  height:12%;
+  position:fixed;
+  bottom:0;
+  left:0;
+}
+.score-container{
+  display: -webkit-flex;
+  display:flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
 .score {
   display: block;
-  position: absolute;
-  top: 15px;
   z-index: 1;
-  font-size: 20px;
+  font-size: 5.0vmin;
+  color: black;
 }
+
+span {
+  padding: 5px;
+  margin: 5px;
+}
+
 .controls {
   display: block;
   position: absolute;
