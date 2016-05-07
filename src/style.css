@@ -25,6 +25,7 @@ canvas {
   display:flex;
   -webkit-flex-direction: row;
   flex-direction: row;
+  align-items: center !important;
   background:white;
   background-image: none;
   background-repeat: repeat;
@@ -57,7 +58,7 @@ canvas {
 }
 
 .dashboard-logo {
-  position: fixed !important;
+  position: fixed;
   right: 1em;
   bottom: 1.5em;
   height: 2.5em;
