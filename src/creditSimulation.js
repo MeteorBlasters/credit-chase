@@ -1,10 +1,11 @@
 //sychronously posts a credit event
-eventPOST = function(score, event)
+export function eventPOST(score, event)
 {
     var event = {
         score: score,
         event: event
     }
+    //alert(JSON.stringify(event));
     var ret;
     $.ajax({
         type: "POST",
@@ -16,7 +17,7 @@ eventPOST = function(score, event)
             ret = data;
         },
         error: function (err) {
-            alert("endpoint post failed: " + JSON.stringify(err));
+            alert("endpoint post failed: " + JSON.stringify(err) + "/n data:" + JSON.stringify(event));
         },
         data: JSON.stringify(event)
     });
