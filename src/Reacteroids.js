@@ -243,7 +243,8 @@ export class Reacteroids extends Component {
     if(!this.state.inGame){
       endgame = (
         <div className="endgame">
-          <p>Game over, man!</p>
+          
+          <p>Event</p>
           <p>{message}</p>
           <button
             onClick={ this.startGame.bind(this) }>
