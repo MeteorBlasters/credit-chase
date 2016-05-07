@@ -6,10 +6,10 @@ export class Dashboard extends Component {
       <div className='dashboard-container'>
         <div className='score-container'>
           <span className='score'>
-            CREDIT:{this.props.creditScore}
+            LIFE SCORE:{this.props.lifeScore}
           </span>
           <span className='score'>
-            LIFE:{this.props.lifeScore}
+            CREDIT SCORE:{this.props.creditScore}
           </span>
         </div>
         <div className='logo'>
