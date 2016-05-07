@@ -202,7 +202,8 @@ export class Reacteroids extends Component {
         var item1 = items1[a];
         var item2 = items2[b];
         if(this.checkCollision(item1, item2)){
-          item1.destroy();
+          //item1.destroy();
+          this.addScore(5);
           item2.destroy();
         }
       }
@@ -251,7 +252,6 @@ export class Reacteroids extends Component {
         <span className="score top-score" >Top Score: {this.state.topScore}</span>
         <span className="controls" >
           Use [A][S][W][D] or [←][↑][↓][→] to MOVE<br/>
-          Use [SPACE] to SHOOT
         </span>
         <canvas ref="canvas"
           width={this.state.screen.width * this.state.screen.ratio}

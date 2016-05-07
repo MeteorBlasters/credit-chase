@@ -68,7 +68,7 @@ export default class Ship {
         y: posDelta.y / randomNumBetween(3, 5)
       }
     });
-    this.create(particle, 'particles');
+    //this.create(particle, 'particles');
   }
 
   render(state){

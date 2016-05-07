@@ -38,22 +38,22 @@ export default class Asteroid {
       this.create(particle, 'particles');
     }
 
-    // Break into smaller asteroids
-    if(this.radius > 10){
-      for (let i = 0; i < 2; i++) {
-        let asteroid = new Asteroid({
+    // // Break into smaller asteroids
+    // if(this.radius > 10){
+    //   for (let i = 0; i < 2; i++) {
+    //     let asteroid = new Asteroid({
 
-          size: this.radius/2,
-          position: {
-            x: randomNumBetween(-10, 20)+this.position.x,
-            y: randomNumBetween(-10, 20)+this.position.y
-          },
-          create: this.create.bind(this),
-          addScore: this.addScore.bind(this)
-        });
-        this.create(asteroid, 'asteroids');
-      }
-    }
+    //       size: this.radius/2,
+    //       position: {
+    //         x: randomNumBetween(-10, 20)+this.position.x,
+    //         y: randomNumBetween(-10, 20)+this.position.y
+    //       },
+    //       create: this.create.bind(this),
+    //       addScore: this.addScore.bind(this)
+    //     });
+    //     this.create(asteroid, 'asteroids');
+    //   }
+    // }
   }
 
   render(state){
@@ -81,15 +81,9 @@ export default class Asteroid {
     context.save();
     context.translate(this.position.x, this.position.y);
     context.rotate(this.rotation * Math.PI / 180);
-    context.strokeStyle = '#FFF';
-    context.lineWidth = 2;
-    context.beginPath();
-    context.moveTo(0, -this.radius);
-    for (let i = 1; i < this.vertices.length; i++) {
-      context.lineTo(this.vertices[i].x, this.vertices[i].y);
-    }
-    context.closePath();
-    context.stroke();
+    context.fillStyle = '#FFF';
+    context.fillRect(0, 0, this.radius, this.radius);
+    //context.stroke();
     context.restore();
   }
 }
