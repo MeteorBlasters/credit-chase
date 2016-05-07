@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Ship from './Ship';
 import Asteroid from './Asteroid';
 import { randomNumBetweenExcluding } from './helpers'
+import { Dashboard } from './Dashboard';
 
 const KEY = {
   LEFT:  37,
@@ -34,8 +35,9 @@ export class Reacteroids extends Component {
         space : 0,
       },
       asteroidCount: 10,
-      currentScore: 0,
-      topScore: localStorage['topscore'] || 0,
+      creditScore: 600,
+      lifeScore: 0,
+      topScore: localStorage['topscore'] || 850,
       inGame: false
     }
     this.ship = [];
@@ -122,7 +124,8 @@ export class Reacteroids extends Component {
   addScore(points){
     if(this.state.inGame){
       this.setState({
-        currentScore: this.state.currentScore + points,
+        creditScore: this.state.creditScore + points,
+        lifeScore: this.state.lifeScore + points,
       });
     }
   }
@@ -130,7 +133,8 @@ export class Reacteroids extends Component {
   startGame(){
     this.setState({
       inGame: true,
-      currentScore: 0,
+      creditScore: 600,
+      lifeScore: 0,
     });
 
     // Make ship
@@ -155,11 +159,11 @@ export class Reacteroids extends Component {
     });
 
     // Replace top score
-    if(this.state.currentScore > this.state.topScore){
+    if(this.state.creditScore > this.state.topScore){
       this.setState({
-        topScore: this.state.currentScore,
+        topScore: this.state.creditScore,
       });
-      localStorage['topscore'] = this.state.currentScore;
+      localStorage['topscore'] = this.state.creditScore;
     }
   }
 
@@ -232,18 +236,18 @@ export class Reacteroids extends Component {
     let endgame;
     let message;
 
-    if (this.state.currentScore <= 0) {
+    if (this.state.creditScore <= 0) {
       message = '0 points... So sad.';
-    } else if (this.state.currentScore >= this.state.topScore){
-      message = 'Top score with ' + this.state.currentScore + ' points. Woo!';
+    } else if (this.state.creditScore >= this.state.topScore){
+      message = 'Top score with ' + this.state.creditScore + ' points. Woo!';
     } else {
-      message = this.state.currentScore + ' Points though :)'
+      message = this.state.creditScore + ' Points though :)'
     }
 
     if(!this.state.inGame){
       endgame = (
         <div className="endgame">
-          
+
           <p>Event</p>
           <p>{message}</p>
           <button
@@ -257,16 +261,17 @@ export class Reacteroids extends Component {
     return (
       <div>
         { endgame }
-        <span className="score current-score" >Score: {this.state.currentScore}</span>
-        <span className="score top-score" >Top Score: {this.state.topScore}</span>
-        <span className="controls" >
-          Use [A][S][W][D] or [←][↑][↓][→] to MOVE<br/>
-        </span>
+
         <canvas ref="canvas"
           width={this.state.screen.width * this.state.screen.ratio}
           height={this.state.screen.height * this.state.screen.ratio}
         />
+
+        <Dashboard
+          creditScore={this.state.creditScore}
+          lifeScore={this.state.lifeScore}
+        />
       </div>
-    );
+    )
   }
-}
+};
