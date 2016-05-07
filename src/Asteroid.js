@@ -15,6 +15,11 @@ export default class Asteroid {
     this.create = args.create;
     this.addScore = args.addScore;
     this.vertices = asteroidVertices(8, args.size)
+
+    // add properties of the different life events
+    this.event = {
+
+    }
   }
 
   destroy(){
