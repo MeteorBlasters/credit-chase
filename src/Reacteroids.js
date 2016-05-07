@@ -35,7 +35,7 @@ export class Reacteroids extends Component {
         space : 0,
       },
       asteroidCount: 10,
-      creditScore: 700,
+      creditScore: 600,
       lifeScore: 0,
       topScore: localStorage['topscore'] || 850,
       inGame: false
@@ -133,7 +133,7 @@ export class Reacteroids extends Component {
   startGame(){
     this.setState({
       inGame: true,
-      creditScore: 700,
+      creditScore: 600,
       lifeScore: 0,
     });
 
@@ -247,7 +247,7 @@ export class Reacteroids extends Component {
     if(!this.state.inGame){
       endgame = (
         <div className="endgame">
-          
+
           <p>Event</p>
           <p>{message}</p>
           <button
