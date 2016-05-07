@@ -8,7 +8,7 @@ export class Dashboard extends Component {
           <span className='score'>
             LIFE SCORE:{this.props.lifeScore}
           </span>
-          <span className='score'>
+          <span className='score right'>
             CREDIT SCORE:{this.props.creditScore}
           </span>
         </div>
