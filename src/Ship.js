@@ -128,7 +128,7 @@ export default class Ship {
     // context.closePath();
     // context.fill();
     
-    context.drawImage(this.img, -15, -15, 30, 30);
+    context.drawImage(this.img, -25, -25, 50, 50);
     
     context.stroke();
     context.restore();
