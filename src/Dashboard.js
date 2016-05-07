@@ -12,8 +12,7 @@ export class Dashboard extends Component {
             CREDIT SCORE:{this.props.creditScore}
           </span>
         </div>
-        <div className='logo'>
-        </div>
+        <img src='/static/tu_logo.svg' className='dashboard-logo'/>
       </div>
     )
   }

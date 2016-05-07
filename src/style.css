@@ -56,6 +56,13 @@ canvas {
   letter-spacing: -2px;
 }
 
+.dashboard-logo {
+  position: relative;
+  left: 55%;
+  top: 25%;
+  height: 40px;
+}
+
 span {
   padding: 5px;
   margin: 5px;
