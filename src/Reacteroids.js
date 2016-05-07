@@ -90,7 +90,7 @@ export class Reacteroids extends Component {
 
     // Motion trail
     context.fillStyle = '#FBD802';
-    context.globalAlpha = 0.4;
+    context.globalAlpha = 1;
     context.fillRect(0, 0, this.state.screen.width, this.state.screen.height);
     context.globalAlpha = 1;
 
@@ -101,7 +101,7 @@ export class Reacteroids extends Component {
       this.generateAsteroids(count)
     }
 
-    // Check for colisions
+    // Check for collisions
     this.checkCollisionsWith(this.bullets, this.asteroids);
     this.checkCollisionsWith(this.ship, this.asteroids);
 

@@ -54,8 +54,8 @@ export default class Ship {
   }
 
   accelerate(val){
-    this.velocity.x -= Math.sin(-this.rotation*Math.PI/180) * this.speed;
-    this.velocity.y -= Math.cos(-this.rotation*Math.PI/180) * this.speed;
+    this.velocity.x -= Math.sin(-this.rotation*Math.PI/180) * 0.06//this.speed;
+    this.velocity.y -= Math.cos(-this.rotation*Math.PI/180) * 0.06//this.speed;
 
     // Thruster particles
     let posDelta = rotatePoint({x:0, y:-10}, {x:0,y:0}, (this.rotation-180) * Math.PI / 180);
@@ -77,7 +77,7 @@ export default class Ship {
   render(state){
     // Controls
     if(state.keys.up){
-      this.accelerate(1);
+      this.accelerate(0.5);
     }
     if(state.keys.left){
       this.rotate('LEFT');
