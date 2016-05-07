@@ -31,7 +31,7 @@ export class Reacteroids extends Component {
         down  : 0,
         space : 0,
       },
-      asteroidCount: 3,
+      asteroidCount: 10,
       currentScore: 0,
       topScore: localStorage['topscore'] || 0,
       inGame: false
@@ -166,7 +166,7 @@ export class Reacteroids extends Component {
     let ship = this.ship[0];
     for (let i = 0; i < howMany; i++) {
       let asteroid = new Asteroid({
-        size: 80,
+        size: 20,
         position: {
           x: randomNumBetweenExcluding(0, this.state.screen.width, ship.position.x-60, ship.position.x+60),
           y: randomNumBetweenExcluding(0, this.state.screen.height, ship.position.y-60, ship.position.y+60)

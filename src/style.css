@@ -1,7 +1,7 @@
 body {
   padding: 0;
   margin: 0;
-  font-family: 'PT Mono', serif;
+  font-family: 'Roboto', sans-serif;
   color: #ffffff;
 }
 canvas {
@@ -55,7 +55,7 @@ button{
   font-size: 20px;
   padding: 10px 20px;
   margin: 10px;
-  font-family: 'PT Mono', serif;
+  font-family: 'Roboto', sans-serif;
   cursor: pointer;
 }
 button:hover{
