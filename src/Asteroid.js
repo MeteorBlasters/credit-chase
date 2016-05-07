@@ -16,13 +16,16 @@ export default class Asteroid {
     this.create = args.create;
     this.addScore = args.addScore;
     this.vertices = asteroidVertices(8, args.size)
+    
+    this.triggerCallback = args.triggerCallback;
 
     // add properties of the different life events
-    this.event = events[Math.floor(randomNumBetween(0,2))];
+    this.event = events[Math.floor(randomNumBetween(0,1))];
 
     this.img = new Image();
     if (this.event == events[0]) {
       this.img.src = '/static/graduate_school.svg'
+      this.radius *= 1.5;
     } else {
       this.img.src = '/static/life_event.svg'
     }
@@ -32,7 +35,10 @@ export default class Asteroid {
     this.delete = true;
 
     this.addScore(this.score);
-
+    
+    //trigger the life event
+    this.triggerCallback(this.event);
+    
     // Explode
     for (let i = 0; i < this.radius; i++) {
       const particle = new Particle({

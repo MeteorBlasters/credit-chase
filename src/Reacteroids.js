@@ -3,6 +3,8 @@ import Ship from './Ship';
 import Asteroid from './Asteroid';
 import { randomNumBetweenExcluding } from './helpers'
 import { Dashboard } from './Dashboard';
+import { eventPOST } from './creditSimulation';
+
 
 const KEY = {
   LEFT:  37,
@@ -15,7 +17,7 @@ const KEY = {
   SPACE: 32
 };
 
-export let events = [{graduateCollege: 'PAY_STUDENT_LOANS_30_DAYS_LATE'}, {graduateCollege: 'PAY_LOANS_ON_TIME'}];
+export let events = [{graduate_college: 'PAY_STUDENT_LOANS_30_DAYS_LATE'}, {graduate_college: 'PAY_LOANS_ON_TIME'}];
 
 export class Reacteroids extends Component {
   constructor() {
@@ -170,6 +172,7 @@ export class Reacteroids extends Component {
   generateAsteroids(howMany){
     let asteroids = [];
     let ship = this.ship[0];
+    let that = this; //binds this for use in triggerCallback function
     for (let i = 0; i < howMany; i++) {
       let asteroid = new Asteroid({
         size: 40,
@@ -179,7 +182,12 @@ export class Reacteroids extends Component {
         },
         //event: this.randomEvent(),
         create: this.createObject.bind(this),
-        addScore: this.addScore.bind(this)
+        addScore: this.addScore.bind(this),
+        triggerCallback: function(event) {
+          var update = eventPOST(that.state.creditScore, event);
+          that.setState({creditScore: update.score});
+          //TODO use update.description_text in our popup
+        }
       });
       this.createObject(asteroid, 'asteroids');
     }
