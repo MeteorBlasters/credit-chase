@@ -57,9 +57,9 @@ canvas {
 }
 
 .dashboard-logo {
-  position: relative;
-  left: 55%;
-  top: 25%;
+  position: fixed !important;
+  right: 1em;
+  bottom: 1.5em;
   height: 40px;
 }
 
