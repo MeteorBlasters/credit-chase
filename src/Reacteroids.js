@@ -14,6 +14,8 @@ const KEY = {
   SPACE: 32
 };
 
+export let events = [{graduateCollege: 'PAY_STUDENT_LOANS_30_DAYS_LATE'}, {graduateCollege: 'PAY_LOANS_ON_TIME'}];
+
 export class Reacteroids extends Component {
   constructor() {
     super();
@@ -171,11 +173,16 @@ export class Reacteroids extends Component {
           x: randomNumBetweenExcluding(0, this.state.screen.width, ship.position.x-60, ship.position.x+60),
           y: randomNumBetweenExcluding(0, this.state.screen.height, ship.position.y-60, ship.position.y+60)
         },
+        //event: this.randomEvent(),
         create: this.createObject.bind(this),
         addScore: this.addScore.bind(this)
       });
       this.createObject(asteroid, 'asteroids');
     }
+  }
+
+  randomEvent() {
+    return this.events[Math.floor(Math.random * 2)];
   }
 
   createObject(item, group){

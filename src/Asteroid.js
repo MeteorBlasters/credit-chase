@@ -1,5 +1,6 @@
 import Particle from './Particle';
 import { asteroidVertices, randomNumBetween } from './helpers';
+import { events } from './Reacteroids';
 
 export default class Asteroid {
   constructor(args) {
@@ -15,14 +16,16 @@ export default class Asteroid {
     this.create = args.create;
     this.addScore = args.addScore;
     this.vertices = asteroidVertices(8, args.size)
-    
-    // add properties of the different life events
-    this.event = {
 
+    // add properties of the different life events
+    this.event = events[Math.floor(randomNumBetween(0,2))];
+
+    this.img = new Image();
+    if (this.event == events[0]) {
+      this.img.src = '/static/graduate_school.svg'
+    } else {
+      this.img.src = '/static/life_event.svg'
     }
-    
-    this.img = new Image();   // Create new img element
-    this.img.src = '/static/life_event.svg'; // Set source path
   }
 
   destroy(){
