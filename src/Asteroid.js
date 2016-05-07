@@ -15,11 +15,14 @@ export default class Asteroid {
     this.create = args.create;
     this.addScore = args.addScore;
     this.vertices = asteroidVertices(8, args.size)
-
+    
     // add properties of the different life events
     this.event = {
 
     }
+    
+    this.img = new Image();   // Create new img element
+    this.img.src = '/static/life_event.svg'; // Set source path
   }
 
   destroy(){
@@ -87,8 +90,10 @@ export default class Asteroid {
     context.translate(this.position.x, this.position.y);
     context.rotate(this.rotation * Math.PI / 180);
     context.fillStyle = '#FFF';
-    context.fillRect(0, 0, this.radius, this.radius);
+    //context.fillRect(0, 0, this.radius, this.radius);
     //context.stroke();
+    context.drawImage(this.img, this.radius/2*-1, this.radius/2*-1, this.radius, this.radius);
+    context.stroke();
     context.restore();
   }
 }
