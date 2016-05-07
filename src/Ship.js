@@ -1,4 +1,4 @@
-import Bullet from './Bullet';
+// import Bullet from './Bullet';
 import Particle from './Particle';
 import { rotatePoint, randomNumBetween } from './helpers';
 
@@ -17,7 +17,7 @@ export default class Ship {
     this.lastShot = 0;
     this.create = args.create;
     this.onDie = args.onDie;
-    
+
     this.img = new Image();   // Create new img element
     this.img.src = '/static/tu_character_logo.svg'; // Set source path
   }
@@ -54,8 +54,8 @@ export default class Ship {
   }
 
   accelerate(val){
-    this.velocity.x -= Math.sin(-this.rotation*Math.PI/180) * this.speed;
-    this.velocity.y -= Math.cos(-this.rotation*Math.PI/180) * this.speed;
+    this.velocity.x -= Math.sin(-this.rotation*Math.PI/180) * 0.06//this.speed;
+    this.velocity.y -= Math.cos(-this.rotation*Math.PI/180) * 0.06//this.speed;
 
     // Thruster particles
     let posDelta = rotatePoint({x:0, y:-10}, {x:0,y:0}, (this.rotation-180) * Math.PI / 180);
@@ -77,7 +77,7 @@ export default class Ship {
   render(state){
     // Controls
     if(state.keys.up){
-      this.accelerate(1);
+      this.accelerate(0.5);
     }
     if(state.keys.left){
       this.rotate('LEFT');
@@ -85,11 +85,11 @@ export default class Ship {
     if(state.keys.right){
       this.rotate('RIGHT');
     }
-    if(state.keys.space && Date.now() - this.lastShot > 300){
-      const bullet = new Bullet({ship: this});
-      this.create(bullet, 'bullets');
-      this.lastShot = Date.now();
-    }
+    // if(state.keys.space && Date.now() - this.lastShot > 300){
+    //   const bullet = new Bullet({ship: this});
+    //   this.create(bullet, 'bullets');
+    //   this.lastShot = Date.now();
+    // }
 
     // Move
     this.position.x += this.velocity.x;
@@ -126,10 +126,8 @@ export default class Ship {
     // context.lineTo(-5, 7);
     // context.lineTo(-10, 10);
     // context.closePath();
-    // context.fill();
-    
+    // context.fill();    
     context.drawImage(this.img, -25, -25, 50, 50);
-    
     context.stroke();
     context.restore();
   }
