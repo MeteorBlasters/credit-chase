@@ -33,6 +33,7 @@ export default class Asteroid {
 
   destroy(){
     this.delete = true;
+
     this.addScore(this.score);
     
     //trigger the life event
