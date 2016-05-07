@@ -5,6 +5,7 @@ import { randomNumBetweenExcluding } from './helpers'
 
 const KEY = {
   LEFT:  37,
+  DOWN: 38,
   RIGHT: 39,
   UP: 38,
   A: 65,
