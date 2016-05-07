@@ -17,6 +17,9 @@ export default class Ship {
     this.lastShot = 0;
     this.create = args.create;
     this.onDie = args.onDie;
+    
+    this.img = new Image();   // Create new img element
+    this.img.src = '/static/tu_character_logo.svg'; // Set source path
   }
 
   destroy(){
@@ -113,17 +116,20 @@ export default class Ship {
     context.save();
     context.translate(this.position.x, this.position.y);
     context.rotate(this.rotation * Math.PI / 180);
-    context.strokeStyle = '#ffffff';
-    context.fillStyle = '#000000';
-    context.lineWidth = 2;
-    context.beginPath();
-    context.moveTo(0, -15);
-    context.lineTo(10, 10);
-    context.lineTo(5, 7);
-    context.lineTo(-5, 7);
-    context.lineTo(-10, 10);
-    context.closePath();
-    context.fill();
+    context.strokeStyle = '#AAA';
+    context.fillStyle = '#FFF';
+    // context.lineWidth = 2;
+    // context.beginPath();
+    // context.moveTo(0, -15);
+    // context.lineTo(10, 10);
+    // context.lineTo(5, 7);
+    // context.lineTo(-5, 7);
+    // context.lineTo(-10, 10);
+    // context.closePath();
+    // context.fill();
+    
+    context.drawImage(this.img, -15, -15, 30, 30);
+    
     context.stroke();
     context.restore();
   }
