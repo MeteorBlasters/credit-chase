@@ -60,7 +60,7 @@ canvas {
   position: fixed !important;
   right: 1em;
   bottom: 1.5em;
-  height: 40px;
+  height: 2.5em;
 }
 
 span {
@@ -83,7 +83,7 @@ span {
   position: absolute;
   -webkit-text-fill-color: #000000;
   background-color: #ffffff;
-  
+
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
