@@ -1,4 +1,4 @@
-import Bullet from './Bullet';
+// import Bullet from './Bullet';
 import Particle from './Particle';
 import { rotatePoint, randomNumBetween } from './helpers';
 
@@ -17,7 +17,7 @@ export default class Ship {
     this.lastShot = 0;
     this.create = args.create;
     this.onDie = args.onDie;
-    
+
     this.img = new Image();   // Create new img element
     this.img.src = '/static/tu_character_logo.svg'; // Set source path
   }
@@ -85,11 +85,11 @@ export default class Ship {
     if(state.keys.right){
       this.rotate('RIGHT');
     }
-    if(state.keys.space && Date.now() - this.lastShot > 300){
-      const bullet = new Bullet({ship: this});
-      this.create(bullet, 'bullets');
-      this.lastShot = Date.now();
-    }
+    // if(state.keys.space && Date.now() - this.lastShot > 300){
+    //   const bullet = new Bullet({ship: this});
+    //   this.create(bullet, 'bullets');
+    //   this.lastShot = Date.now();
+    // }
 
     // Move
     this.position.x += this.velocity.x;
@@ -127,9 +127,9 @@ export default class Ship {
     // context.lineTo(-10, 10);
     // context.closePath();
     // context.fill();
-    
+
     context.drawImage(this.img, -15, -15, 30, 30);
-    
+
     context.stroke();
     context.restore();
   }
