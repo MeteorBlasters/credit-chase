@@ -222,7 +222,7 @@ export class Reacteroids extends Component {
     var vx = obj1.position.x - obj2.position.x;
     var vy = obj1.position.y - obj2.position.y;
     var length = Math.sqrt(vx * vx + vy * vy);
-    if(length < obj1.radius + obj2.radius){
+    if(length < (obj1.radius + obj2.radius) * .9){
       return true;
     }
     return false;
@@ -243,7 +243,7 @@ export class Reacteroids extends Component {
     if(!this.state.inGame){
       endgame = (
         <div className="endgame">
-          
+
           <p>Event</p>
           <p>{message}</p>
           <button
