@@ -20,14 +20,29 @@ export default class Asteroid {
     this.triggerCallback = args.triggerCallback;
 
     // add properties of the different life events
-    this.event = events[Math.floor(randomNumBetween(0,1))];
+    this.event = args.event;
 
     this.img = new Image();
     if (this.event == events[0]) {
       this.img.src = '/static/graduate_school.svg'
       this.radius *= 1.5;
-    } else {
+    } else if (this.event == events[1]) {
       this.img.src = '/static/life_event.svg'
+    } else if (this.event == events[2]) {
+      this.img.src = '/static/dui.svg'
+      this.radius *= 1.5;
+    } else if (this.event == events[3]) {
+      this.img.src = '/static/win_money.svg'
+      this.radius *= 1.5;
+    } else if (this.event == events[4]) {
+      this.img.src = '/static/new_job_high.svg'
+      this.radius *= 1.5;
+    } else if (this.event == events[5]) {
+      this.img.src = '/static/new_job_low.svg'
+      this.radius *= 1.5;
+    } else if (this.event["zombie_apocalypse"] == "CREDIT_IS_IRRELEVANT") {
+      this.img.src = '/static/zombie_apocalypse.svg'
+      this.radius *= .5;
     }
   }
 

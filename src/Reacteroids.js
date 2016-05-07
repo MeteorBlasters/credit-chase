@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Ship from './Ship';
 import Asteroid from './Asteroid';
-import { randomNumBetweenExcluding } from './helpers'
+import { randomNumBetweenExcluding, randomNumBetween } from './helpers'
 import { Dashboard } from './Dashboard';
 import { eventPOST } from './creditSimulation';
 
@@ -17,7 +17,14 @@ const KEY = {
   SPACE: 32
 };
 
-export let events = [{graduate_college: 'PAY_STUDENT_LOANS_30_DAYS_LATE'}, {graduate_college: 'PAY_LOANS_ON_TIME'}];
+export let events = [
+  {graduate_college: 'PAY_STUDENT_LOANS_30_DAYS_LATE'}, 
+  {graduate_college: 'PAY_LOANS_ON_TIME'},
+  {DUI: "NO_EFFECT"},
+  {win_large_sum: "NO_EFFECT"},
+  {"new_job-higher_income": "PAY_DOWN_DEBT"},
+  {"new_job-lower_income": "LATE_30_DAYS"},
+];
 
 export class Reacteroids extends Component {
   constructor() {
@@ -36,7 +43,7 @@ export class Reacteroids extends Component {
         down  : 0,
         space : 0,
       },
-      asteroidCount: 10,
+      asteroidCount: 15,
       creditScore: 600,
       lifeScore: 0,
       topScore: localStorage['topscore'] || 850,
@@ -104,7 +111,7 @@ export class Reacteroids extends Component {
     if(!this.asteroids.length){
       let count = this.state.asteroidCount + 1;
       this.setState({ asteroidCount: count });
-      this.generateAsteroids(count)
+      this.generateAsteroids(count);
     }
 
     // Check for collisions
@@ -126,7 +133,7 @@ export class Reacteroids extends Component {
   addScore(points){
     if(this.state.inGame){
       this.setState({
-        creditScore: this.state.creditScore + points,
+        //creditScore: this.state.creditScore + points,
         lifeScore: this.state.lifeScore + points,
       });
     }
@@ -153,6 +160,7 @@ export class Reacteroids extends Component {
     // Make asteroids
     this.asteroids = [];
     this.generateAsteroids(this.state.asteroidCount)
+    this.generateZombie();
   }
 
   gameOver(){
@@ -180,21 +188,56 @@ export class Reacteroids extends Component {
           x: randomNumBetweenExcluding(0, this.state.screen.width, ship.position.x-60, ship.position.x+60),
           y: randomNumBetweenExcluding(0, this.state.screen.height, ship.position.y-60, ship.position.y+60)
         },
-        //event: this.randomEvent(),
+        event: this.randomEvent(),
         create: this.createObject.bind(this),
         addScore: this.addScore.bind(this),
         triggerCallback: function(event) {
           var update = eventPOST(that.state.creditScore, event);
           that.setState({creditScore: update.score});
+          
+          //MUHAHAHA...in the case of a DUI, lower their life score
+          if (event == events[2]) {
+            that.setState({lifeScore: that.state.lifeScore - 65});
+          }
           //TODO use update.description_text in our popup
+          
+          //add more events to replace the removed one
+          that.generateAsteroids(Math.floor(randomNumBetween(0,3)));
         }
       });
       this.createObject(asteroid, 'asteroids');
     }
   }
+  
+  generateZombie(){
+    let asteroids = [];
+    let ship = this.ship[0];
+    let that = this; //binds this for use in triggerCallback function
+    let asteroid = new Asteroid({
+      size: 40,
+      position: {
+        x: randomNumBetweenExcluding(0, this.state.screen.width, ship.position.x-60, ship.position.x+60),
+        y: randomNumBetweenExcluding(0, this.state.screen.height, ship.position.y-60, ship.position.y+60)
+      },
+      event: {zombie_apocalypse: "CREDIT_IS_IRRELEVANT"},
+      create: this.createObject.bind(this),
+      addScore: this.addScore.bind(this),
+      triggerCallback: function(event) {
+        var update = eventPOST(that.state.creditScore, event);
+        that.setState({creditScore: update.score});
+        
+        that.setState({lifeScore: that.state.lifeScore + 100});
+        //TODO use update.description_text in our popup
+        //as a plus you made it through the zombie apocalypse!
+        that.gameOver();
+      }
+    });
+    this.createObject(asteroid, 'asteroids');
+  }
 
   randomEvent() {
-    return this.events[Math.floor(Math.random * 2)];
+    return events[Math.floor(randomNumBetween(0,
+      events.length - 1))];
   }
 
   createObject(item, group){
