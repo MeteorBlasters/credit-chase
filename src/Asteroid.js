@@ -1,5 +1,6 @@
 import Particle from './Particle';
 import { asteroidVertices, randomNumBetween } from './helpers';
+import { eventPost } from './creditSimulation';
 import { events } from './Reacteroids';
 
 export default class Asteroid {
@@ -30,6 +31,7 @@ export default class Asteroid {
 
   destroy(){
     this.delete = true;
+
     this.addScore(this.score);
 
     // Explode
