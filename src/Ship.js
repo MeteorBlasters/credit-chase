@@ -13,7 +13,7 @@ export default class Ship {
     this.rotationSpeed = 6;
     this.speed = 0.15;
     this.inertia = 0.99;
-    this.radius = 20;
+    this.radius = 80;
     this.lastShot = 0;
     this.create = args.create;
     this.onDie = args.onDie;
@@ -126,9 +126,7 @@ export default class Ship {
     // context.lineTo(-5, 7);
     // context.lineTo(-10, 10);
     // context.closePath();
-    // context.fill();
-
-    context.drawImage(this.img, -15, -15, 30, 30);
+    context.drawImage(this.img, this.radius/2*-1, this.radius/2*-1, this.radius, this.radius);
 
     context.stroke();
     context.restore();
