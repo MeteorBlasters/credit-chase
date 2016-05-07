@@ -1,6 +1,5 @@
 import Particle from './Particle';
 import { asteroidVertices, randomNumBetween } from './helpers';
-import { eventPost } from './creditSimulation';
 import { events } from './Reacteroids';
 
 export default class Asteroid {
