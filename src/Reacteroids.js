@@ -185,6 +185,7 @@ export class Reacteroids extends Component {
     this.asteroids = [];
     this.generateAsteroids(this.state.asteroidCount)
     this.generateZombie();
+    this.generateBankrupt();
   }
 
   gameOver(){
@@ -254,6 +255,31 @@ export class Reacteroids extends Component {
         //TODO use update.description_text in our popup
         //as a plus you made it through the zombie apocalypse!
         that.gameOver();
+      }
+    });
+    this.createObject(asteroid, 'asteroids');
+  }
+  
+  generateBankrupt(){
+    let asteroids = [];
+    let ship = this.ship[0];
+    let that = this; //binds this for use in triggerCallback function
+    let asteroid = new Asteroid({
+      size: 40,
+      position: {
+        x: randomNumBetweenExcluding(0, this.state.screen.width, ship.position.x-60, ship.position.x+60),
+        y: randomNumBetweenExcluding(0, this.state.screen.height, ship.position.y-60, ship.position.y+60)
+      },
+      event: {bankruptcy: "BANKRUPT"},
+      create: this.createObject.bind(this),
+      addScore: this.addScore.bind(this),
+      triggerCallback: function(event) {
+        var update = eventPOST(that.state.creditScore, event);
+        that.setState({creditScore: update.score});
+        
+        that.setState({lifeScore: that.state.lifeScore + 50});
+        //TODO use update.description_text in our popup
+        //as a plus you made it through the zombie apocalypse!
       }
     });
     this.createObject(asteroid, 'asteroids');

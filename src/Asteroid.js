@@ -43,6 +43,9 @@ export default class Asteroid {
     } else if (this.event["zombie_apocalypse"] == "CREDIT_IS_IRRELEVANT") {
       this.img.src = '/static/zombie_apocalypse.svg'
       this.radius *= .65;
+    } else if (this.event["bankruptcy"] == "BANKRUPT") {
+      this.img.src = '/static/bankruptcy_red.svg'
+      this.radius *= 2;
     }
   }
 
