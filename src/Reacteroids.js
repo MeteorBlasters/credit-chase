@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import Ship from './Ship';
 import Asteroid from './Asteroid';
 import { randomNumBetweenExcluding, randomNumBetween } from './helpers'
+<<<<<<< HEAD
+=======
+import { Dashboard } from './Dashboard';
+>>>>>>> 6c27bd4164ae368349ac4f6d3f7f0ef7470b4e91
 import { eventPOST } from './creditSimulation';
 import Modal from 'react-modal';
 import { Dashboard } from './Dashboard';
@@ -180,7 +184,6 @@ export class Reacteroids extends Component {
     });
 
     this.createObject(ship, 'ship');
-
     // Make asteroids
     this.asteroids = [];
     this.generateAsteroids(this.state.asteroidCount)
@@ -192,7 +195,8 @@ export class Reacteroids extends Component {
     this.setState({
       inGame: false,
     });
-
+    
+    let ship = this.ship[0];
     // Replace top score
     if(this.state.creditScore > this.state.topScore){
       this.setState({
@@ -219,19 +223,43 @@ export class Reacteroids extends Component {
         triggerCallback: function(event) {
           var update = eventPOST(that.state.creditScore, event);
           that.setState({creditScore: update.score});
-
           //MUHAHAHA...in the case of a DUI, lower their life score
           if (event == events[2]) {
             that.setState({lifeScore: that.state.lifeScore - 65});
           }
           //TODO use update.description_text in our popup
-
           //add more events to replace the removed one
           that.generateAsteroids(Math.floor(randomNumBetween(0,3)));
         }
       });
       this.createObject(asteroid, 'asteroids');
     }
+  }
+  
+  generateZombie(){
+    let asteroids = [];
+    let ship = this.ship[0];
+    let that = this; //binds this for use in triggerCallback function
+    let asteroid = new Asteroid({
+      size: 40,
+      position: {
+        x: randomNumBetweenExcluding(0, this.state.screen.width, ship.position.x-60, ship.position.x+60),
+        y: randomNumBetweenExcluding(0, this.state.screen.height, ship.position.y-60, ship.position.y+60)
+      },
+      event: {zombie_apocalypse: "CREDIT_IS_IRRELEVANT"},
+      create: this.createObject.bind(this),
+      addScore: this.addScore.bind(this),
+      triggerCallback: function(event) {
+        var update = eventPOST(that.state.creditScore, event);
+        that.setState({creditScore: update.score});
+        
+        that.setState({lifeScore: that.state.lifeScore + 100});
+        //TODO use update.description_text in our popup
+        //as a plus you made it through the zombie apocalypse!
+        that.gameOver();
+      }
+    });
+    this.createObject(asteroid, 'asteroids');
   }
 
   generateZombie(){
@@ -291,6 +319,11 @@ export class Reacteroids extends Component {
   }
 
   createObject(item, group){
+    if (item instanceof Ship) {
+      if(this[group].length>0) {
+        return;
+      }
+    }
     this[group].push(item);
   }
 
@@ -344,7 +377,7 @@ export class Reacteroids extends Component {
     let message;
 
     if (this.state.creditScore <= 0) {
-      message = '0 points... So sad.';
+      message = 'Credit Score Reached 0';
     } else if (this.state.creditScore >= this.state.topScore){
       message = 'Top score with ' + this.state.creditScore + ' points. Woo!';
     } else {
@@ -355,11 +388,11 @@ export class Reacteroids extends Component {
       endgame = (
         <div className="endgame">
 
-          <p>Event</p>
+          <p>GAME OVER</p>
           <p>{message}</p>
           <button
             onClick={ this.startGame.bind(this) }>
-            try again?
+            Click Here To Try Again
           </button>
         </div>
       )
