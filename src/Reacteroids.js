@@ -146,6 +146,7 @@ export class Reacteroids extends Component {
       lifeScore: 0,
     });
 
+    var that = this;
     // Make ship
     let ship = new Ship({
       position: {
@@ -153,8 +154,12 @@ export class Reacteroids extends Component {
         y: this.state.screen.height/2
       },
       create: this.createObject.bind(this),
-      onDie: this.gameOver.bind(this)
+      onDie: this.gameOver.bind(this),
+      getSpeedMultiplier: function() {
+        return (that.state.lifeScore/600) * 5;
+      }
     });
+    
     this.createObject(ship, 'ship');
 
     // Make asteroids

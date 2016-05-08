@@ -17,6 +17,7 @@ export default class Ship {
     this.lastShot = 0;
     this.create = args.create;
     this.onDie = args.onDie;
+    this.getSpeedMultiplier = args.getSpeedMultiplier;
 
     this.img = new Image();   // Create new img element
     this.img.src = '/static/tu_character_logo.svg'; // Set source path
@@ -75,6 +76,9 @@ export default class Ship {
   }
 
   render(state){
+    //could mess with this more to speed up based on credit score 
+    //this.speed = this.getSpeedMultiplier()*.15;
+    
     // Controls
     if(state.keys.up){
       this.accelerate(0.5);
