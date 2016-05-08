@@ -42,7 +42,7 @@ export default class Asteroid {
       this.radius *= 1.5;
     } else if (this.event["zombie_apocalypse"] == "CREDIT_IS_IRRELEVANT") {
       this.img.src = '/static/zombie_apocalypse.svg'
-      this.radius *= .5;
+      this.radius *= .65;
     }
   }
 
