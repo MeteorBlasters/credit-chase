@@ -156,7 +156,6 @@ export class Reacteroids extends Component {
       onDie: this.gameOver.bind(this)
     });
     this.createObject(ship, 'ship');
-
     // Make asteroids
     this.asteroids = [];
     this.generateAsteroids(this.state.asteroidCount)
@@ -167,7 +166,8 @@ export class Reacteroids extends Component {
     this.setState({
       inGame: false,
     });
-
+    
+    let ship = this.ship[0];
     // Replace top score
     if(this.state.creditScore > this.state.topScore){
       this.setState({
@@ -241,6 +241,11 @@ export class Reacteroids extends Component {
   }
 
   createObject(item, group){
+    if (item instanceof Ship) {
+      if(this[group].length>0) {
+        return;
+      }
+    }
     this[group].push(item);
   }
 
@@ -288,7 +293,7 @@ export class Reacteroids extends Component {
     let message;
 
     if (this.state.creditScore <= 0) {
-      message = '0 points... So sad.';
+      message = 'Credit Score Reached 0';
     } else if (this.state.creditScore >= this.state.topScore){
       message = 'Top score with ' + this.state.creditScore + ' points. Woo!';
     } else {
@@ -299,11 +304,11 @@ export class Reacteroids extends Component {
       endgame = (
         <div className="endgame">
 
-          <p>Event</p>
+          <p>GAME OVER</p>
           <p>{message}</p>
           <button
             onClick={ this.startGame.bind(this) }>
-            try again?
+            Click Here To Try Again
           </button>
         </div>
       )
