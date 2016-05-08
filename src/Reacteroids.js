@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import Ship from './Ship';
 import Asteroid from './Asteroid';
 import { randomNumBetweenExcluding, randomNumBetween } from './helpers';
+import { Dashboard } from './Dashboard';
 import { eventPOST } from './creditSimulation';
 import Modal from 'react-modal';
-import { Dashboard } from './Dashboard';
 import { StartScreen } from './StartScreen';
+import Notifications, { notify } from 'react-notify-toast';
+
 
 const KEY = {
   LEFT:  37,
@@ -191,7 +193,7 @@ export class Reacteroids extends Component {
     this.setState({
       inGame: false,
     });
-    
+
     let ship = this.ship[0];
     // Replace top score
     if(this.state.creditScore > this.state.topScore){
@@ -216,9 +218,11 @@ export class Reacteroids extends Component {
         event: this.randomEvent(),
         create: this.createObject.bind(this),
         addScore: this.addScore.bind(this),
+
         triggerCallback: function(event) {
           var update = eventPOST(that.state.creditScore, event);
           that.setState({creditScore: update.score});
+
           //MUHAHAHA...in the case of a DUI, lower their life score
           if (event == events[2]) {
             that.setState({lifeScore: that.state.lifeScore - 65});
@@ -226,12 +230,20 @@ export class Reacteroids extends Component {
           //TODO use update.description_text in our popup
           //add more events to replace the removed one
           that.generateAsteroids(Math.floor(randomNumBetween(0,3)));
+
+          console.log('UPDATE: ', update);
+          var message = update.description_text[0];
+          console.log(message);
+          notify.show(message, 1000);
+
+
         }
       });
+
       this.createObject(asteroid, 'asteroids');
     }
   }
-  
+
   generateZombie(){
     let asteroids = [];
     let ship = this.ship[0];
@@ -248,7 +260,7 @@ export class Reacteroids extends Component {
       triggerCallback: function(event) {
         var update = eventPOST(that.state.creditScore, event);
         that.setState({creditScore: update.score});
-        
+
         that.setState({lifeScore: that.state.lifeScore + 100});
         //TODO use update.description_text in our popup
         //as a plus you made it through the zombie apocalypse!
@@ -283,7 +295,7 @@ export class Reacteroids extends Component {
     });
     this.createObject(asteroid, 'asteroids');
   }
-  
+
   generateBankrupt(){
     let asteroids = [];
     let ship = this.ship[0];
@@ -300,7 +312,7 @@ export class Reacteroids extends Component {
       triggerCallback: function(event) {
         var update = eventPOST(that.state.creditScore, event);
         that.setState({creditScore: update.score});
-        
+
         that.setState({lifeScore: that.state.lifeScore + 50});
         //TODO use update.description_text in our popup
         //as a plus you made it through the zombie apocalypse!
@@ -425,6 +437,10 @@ export class Reacteroids extends Component {
           width={this.state.screen.width * this.state.screen.ratio}
           height={this.state.screen.height * this.state.screen.ratio}
         />
+
+        <div className='notifications'>
+          <Notifications />
+        </div>
 
         <Dashboard
           creditScore={this.state.creditScore}
