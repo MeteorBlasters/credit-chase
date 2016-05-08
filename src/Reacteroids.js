@@ -4,7 +4,6 @@ import Asteroid from './Asteroid';
 import { randomNumBetweenExcluding, randomNumBetween } from './helpers'
 import { eventPOST } from './creditSimulation';
 import Modal from 'react-modal';
-import { randomNumBetweenExcluding } from './helpers'
 import { Dashboard } from './Dashboard';
 import { StartScreen } from './StartScreen';
 
