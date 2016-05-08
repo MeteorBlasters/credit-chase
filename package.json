@@ -52,6 +52,10 @@
   },
   "dependencies": {
     "react": "^0.14.0",
-    "react-dom": "^0.14.0"
+    "react-bootstrap": "^0.29.3",
+    "react-dom": "^0.14.0",
+    "react-modal": "^1.2.1",
+    "react-notification": "^5.0.4",
+    "react-notify-toast": "^0.1.1"
   }
 }

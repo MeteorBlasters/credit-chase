@@ -23,6 +23,13 @@ p{
   letter-spacing: -2px;
 }
 
+#notification-wrapper {
+  line-height: 25px;
+  color:black;
+  padding:10px;
+  width:150%;
+  text-align: center;
+}
 .current-score {
   left: 20px;
 }
