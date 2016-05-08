@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import Ship from './Ship';
 import Asteroid from './Asteroid';
-import { randomNumBetweenExcluding, randomNumBetween } from './helpers'
-<<<<<<< HEAD
-=======
-import { Dashboard } from './Dashboard';
->>>>>>> 6c27bd4164ae368349ac4f6d3f7f0ef7470b4e91
+import { randomNumBetweenExcluding, randomNumBetween } from './helpers';
 import { eventPOST } from './creditSimulation';
 import Modal from 'react-modal';
 import { Dashboard } from './Dashboard';
