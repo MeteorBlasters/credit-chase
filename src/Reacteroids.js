@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import Ship from './Ship';
 import Asteroid from './Asteroid';
 import { randomNumBetweenExcluding, randomNumBetween } from './helpers'
-import { Dashboard } from './Dashboard';
 import { eventPOST } from './creditSimulation';
-
+import Modal from 'react-modal';
+import { randomNumBetweenExcluding } from './helpers'
+import { Dashboard } from './Dashboard';
+import { StartScreen } from './StartScreen';
 
 const KEY = {
   LEFT:  37,
@@ -18,13 +20,29 @@ const KEY = {
 };
 
 export let events = [
-  {graduate_college: 'PAY_STUDENT_LOANS_30_DAYS_LATE'}, 
+  {graduate_college: 'PAY_STUDENT_LOANS_30_DAYS_LATE'},
   {graduate_college: 'PAY_LOANS_ON_TIME'},
   {DUI: "NO_EFFECT"},
   {win_large_sum: "NO_EFFECT"},
   {"new_job-higher_income": "PAY_DOWN_DEBT"},
   {"new_job-lower_income": "LATE_30_DAYS"},
 ];
+
+const customStyles = {
+  overlay: {
+  },
+  content : {
+    position: 'absolute',
+    top: '45%',
+    left: '50%',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    border: 'none',
+    overflow: 'initial',
+    height: '775px',
+    width: '950px'
+  }
+};
 
 export class Reacteroids extends Component {
   constructor() {
@@ -47,7 +65,8 @@ export class Reacteroids extends Component {
       creditScore: 600,
       lifeScore: 0,
       topScore: localStorage['topscore'] || 850,
-      inGame: false
+      inStart: true,
+      modalIsOpen: true,
     }
     this.ship = [];
     this.asteroids = [];
@@ -141,6 +160,7 @@ export class Reacteroids extends Component {
 
   startGame(){
     this.setState({
+      inStart: true,
       inGame: true,
       creditScore: 600,
       lifeScore: 0,
@@ -159,7 +179,7 @@ export class Reacteroids extends Component {
         return (that.state.lifeScore/600) * 5;
       }
     });
-    
+
     this.createObject(ship, 'ship');
 
     // Make asteroids
@@ -199,13 +219,13 @@ export class Reacteroids extends Component {
         triggerCallback: function(event) {
           var update = eventPOST(that.state.creditScore, event);
           that.setState({creditScore: update.score});
-          
+
           //MUHAHAHA...in the case of a DUI, lower their life score
           if (event == events[2]) {
             that.setState({lifeScore: that.state.lifeScore - 65});
           }
           //TODO use update.description_text in our popup
-          
+
           //add more events to replace the removed one
           that.generateAsteroids(Math.floor(randomNumBetween(0,3)));
         }
@@ -213,7 +233,7 @@ export class Reacteroids extends Component {
       this.createObject(asteroid, 'asteroids');
     }
   }
-  
+
   generateZombie(){
     let asteroids = [];
     let ship = this.ship[0];
@@ -230,7 +250,7 @@ export class Reacteroids extends Component {
       triggerCallback: function(event) {
         var update = eventPOST(that.state.creditScore, event);
         that.setState({creditScore: update.score});
-        
+
         that.setState({lifeScore: that.state.lifeScore + 100});
         //TODO use update.description_text in our popup
         //as a plus you made it through the zombie apocalypse!
@@ -288,7 +308,13 @@ export class Reacteroids extends Component {
     return false;
   }
 
+  closeModal() {
+    console.log('THIS: ', this);
+    this.setState({modalIsOpen: false});
+  }
+
   render() {
+    let startgame;
     let endgame;
     let message;
 
@@ -314,9 +340,32 @@ export class Reacteroids extends Component {
       )
     }
 
+    if(this.state.inStart){
+      startgame = (
+        <StartScreen/>
+      )
+    }
+
     return (
       <div>
         { endgame }
+
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onRequestClose={this.closeModal}
+          style={customStyles} >
+
+          <div className='start-container'>
+            <img src='/static/credit_chase_logo.png' className='credit-chase'/>
+            <br/>
+            <p>USE THE ARROW KEYS TO MOVE YOUR PLAYER AROUND THE SCREEN.</p>
+            <p>COLLECT AS MANY POSITIVE LIFE EVENTS AS YOU CAN TO INCREASE</p>
+            <p>YOUR LIFE SCORE AND LEARN ABOUT GOOD CREDIT. </p>
+            <br/>
+            <button onClick={this.closeModal.bind(this)}>START THE GAME</button>
+          </div>
+
+        </Modal>
 
         <canvas ref="canvas"
           width={this.state.screen.width * this.state.screen.ratio}
