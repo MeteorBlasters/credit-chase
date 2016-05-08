@@ -14,11 +14,34 @@ canvas {
   width: 100%;
   height: 100%;
 }
+p{
+  font-size: 1.65em;
+  font-weight: 600;
+  line-height: .05em;
+  color:black;
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: -2px;
+}
+
 .current-score {
   left: 20px;
 }
 .top-score {
   right: 20px;
+}
+.start-container{
+  display: -webkit-flex;
+  display:flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+.credit-chase{
+  position: relative;
+  width: 100%;
+  margin-top: 5%;
+  margin-bottom: 5%;
 }
 .dashboard-container{
   display: -webkit-flex;
@@ -93,12 +116,14 @@ span {
   text-align: center;
 }
 button{
-  border: 4px solid #000000; /*#ffffff;*/
-  background-color: transparent;
-  color: #ffffff;
+  border: none;
+  background-color: #00A6CA;
+  color: white;
+  width: 12em;
+  height: 3em;
   font-size: 20px;
   padding: 10px 20px;
-  margin: 10px;
+  margin-bottom: 1em;
   font-family: 'Roboto', sans-serif;
   cursor: pointer;
 }
