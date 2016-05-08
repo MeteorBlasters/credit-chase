@@ -101,7 +101,7 @@ export class Reacteroids extends Component {
 
     const context = this.refs.canvas.getContext('2d');
     this.setState({ context: context });
-    this.startGame();
+    // this.startGame();
     requestAnimationFrame(() => {this.update()});
   }
 
@@ -158,6 +158,8 @@ export class Reacteroids extends Component {
   }
 
   startGame(){
+
+    console.log('STARTED GAME');
     this.setState({
       inStart: true,
       inGame: true,
@@ -365,6 +367,7 @@ export class Reacteroids extends Component {
   closeModal() {
     console.log('THIS: ', this);
     this.setState({modalIsOpen: false});
+    this.startGame();
   }
 
   render() {
@@ -380,7 +383,7 @@ export class Reacteroids extends Component {
       message = this.state.creditScore + ' Points though :)'
     }
 
-    if(!this.state.inGame){
+    if(!this.state.inStart){
       endgame = (
         <div className="endgame">
 
@@ -402,7 +405,7 @@ export class Reacteroids extends Component {
 
     return (
       <div>
-        { endgame }
+          { endgame }
 
         <Modal
           isOpen={this.state.modalIsOpen}
