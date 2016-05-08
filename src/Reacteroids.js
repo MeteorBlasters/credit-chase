@@ -234,7 +234,7 @@ export class Reacteroids extends Component {
           console.log('UPDATE: ', update);
           var message = update.description_text[0];
           console.log(message);
-          notify.show(message, 10000);
+          notify.show(message, 1000);
 
 
         }
